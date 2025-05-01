@@ -1,0 +1,116 @@
+.main-section{
+    background-image: url("../public/ADC_Website_Images/LastPage_2_Final.jpg");
+    background-repeat: 'no-repeat';
+    background-size: cover;
+    width: 100%;
+    height: 25%
+    /* z-index: 1 */
+  
+}
+
+.inquiryForm{
+    height: 250px;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+
+.carousel-indicators [data-bs-target] {
+    background-color: #6f6e6e; /* Your custom color */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #f2f5f5; /* Color for active indicator */
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #6f6e6e; /* Custom background color */
+    background-size: 100% 100%;
+    border-radius: 50%;
+  }
+
+  #aboutus h2{
+    color: orange;
+  }
+
+.backgroundoverelay  {
+    position: 'absolute';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: 'rgba(255, 255, 255, 0.5)'; /* this makes the background lighter */
+    z-index: 2
+  };
+
+
+  @media only screen and (max-width: 768px){
+    .logo{
+        width: 80px;
+        height: 50px
+    }
+
+    .top{
+        width: 100%;
+    }
+
+    .aboutimage{
+      width: 100vw;
+      height: 40vh;
+    }
+    .map{
+      width: 100vw;
+    }
+
+  }
+
+  @media only screen and (max-width: 591px){
+
+    .aboutimage{
+      width: 100%;
+      background-size: cover;
+      /* height: 350px; */
+      /* height: 40vh; */
+    }
+  }
+
+  @media only screen and (max-width: 440px){
+    .aboutimage{
+      width: 100%;
+      background-size: cover;
+      /* margin-left: -20%; */
+    }
+
+    .map{
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 991px){
+    #inquiry{
+        width: 100%;
+    }
+
+    .top{
+        width: 100%;
+    }
+
+    .query{
+        width: 300px;
+        height: 300px;
+    }
+
+   
+  }
+
+  @media only screen and (max-width: 1050px){
+    .query{
+        width: 300px;
+        height: 300px;
+    }
+  }
