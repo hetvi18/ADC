@@ -65,12 +65,12 @@ function Home() {
 
   return (
     <div>
-        <div className='top bg-dark h-auto sticky-top'>
-                <div className='text-white' style={{textAlign: "right"}}>
-                        <span style={{marginRight: "7px"}}>For Inquiry <FontAwesomeIcon icon={faPhone} style={{color: "#e6e6e6", marginRight: "7px"}} /> 
-                        <a href="" className='text-white' style={{marginRight: "7px", textDecoration: "none"}}>+91-9825023053</a>
-                        <FontAwesomeIcon icon={faEnvelope} style={{color: "#e6e6e6", marginRight:"7px"}} /> 
-                        <a href="" className='text-white' style={{marginRight: "40px", textDecoration: "none"}}>exports.anjudyechem.com</a>
+        <div className='top h-auto sticky-top' style={{backgroundColor: 'rgb(221, 219, 222)'}}>
+                <div className='text-black' style={{textAlign: "right"}}>
+                        <span style={{marginRight: "7px"}}>For Inquiry <FontAwesomeIcon icon={faPhone} style={{color: "#000000", marginRight: "7px"}} /> 
+                        <a href="" className='text-black' style={{marginRight: "7px", textDecoration: "none"}}>+91-9825023053</a>
+                        <FontAwesomeIcon icon={faEnvelope} style={{color: "#000000", marginRight:"7px"}} /> 
+                        <a href="" className='text-black' style={{marginRight: "40px", textDecoration: "none"}}>exports.anjudyechem.com</a>
                         </span>
                 </div>
         </div>
