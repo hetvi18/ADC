@@ -225,8 +225,8 @@ function Home() {
                 </section>
 
 
-                <section id="inquiry" className='p-2'>
-                <div className='d-flex justify-content-center align-item-center bg-secondary vh-20' >
+                <section id="inquiry" className='p-2' style={{backgroundColor: 'rgb(221, 219, 222)'}}>
+                <div className='d-flex justify-content-center align-item-center vh-20' >
         <div className='bg-white p-3 rounded w-50 vh-5' style={{marginTop: "10px", marginBottom: "10px"}}>
                 {/* <div className=' text-black p-3 rounded vh-50'> */}
                 <h2 className='text-center' style={{marginTop: "10px"}}>Tell us your Query</h2>
