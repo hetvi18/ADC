@@ -2,11 +2,11 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faCalendar, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { Carousel, Navbar, Nav, Row, Col, Container, Image } from 'react-bootstrap';
+import { Carousel, Navbar, Nav, Row, Col, Container, Image, Button } from 'react-bootstrap';
 import '../styles/home.css'
 import {Link} from 'react-router-dom'
 import emailjs from 'emailjs-com';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 
 
@@ -18,8 +18,25 @@ function Home() {
         'Products_3.png'
     ];
 
+     // Text Fade In effect:
+
+     const [showText, setShowText] = useState(false);
+     console.log("text", showText);
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setShowText(true);
+        }, 2000); // Delay of 2 seconds before fade-in starts
+    
+        return () => clearTimeout(timer);
+      }, []);
+
+      console.log("Showtext", showText);
+      
+  
+
     const form = useRef();
     const navigate = useNavigate();
+    const [hover, setHover] = useState(false);
 
    
     const [formData, setFormData] = useState({
@@ -28,6 +45,8 @@ function Home() {
         contactno: '',
         message: '',
       });
+    
+    const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +56,19 @@ function Home() {
         navigate("/#products");
     }
 
+    const [showPopup, setShowPopup] = useState(false);
+
+   
+    
+    //   const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     console.log("Form submitted");
+    //     setShowPopup(false);
+    //   };
+
     const sendEmail = (e) =>{
+        console.log("send email called");
+        
         e.preventDefault();
         emailjs.sendForm(
             'service_hikqcb5',       // From EmailJS dashboard
@@ -54,12 +85,16 @@ function Home() {
                 contactno: '',
                 message: '',
               });
+              setSubmitted(true);
+              setShowPopup(false);
             },
             (error) => {
               console.error('Failed to send email:', error.text);
               alert('Failed to send inquiry.');
             }
           );
+          
+          
           
     }
 
@@ -68,9 +103,9 @@ function Home() {
         <div className='top h-auto sticky-top' style={{backgroundColor: 'rgb(221, 219, 222)'}}>
                 <div className='text-black' style={{textAlign: "right"}}>
                         <span style={{marginRight: "7px"}}>For Inquiry <FontAwesomeIcon icon={faPhone} style={{color: "#000000", marginRight: "7px"}} /> 
-                        <a href="" className='text-black' style={{marginRight: "7px", textDecoration: "none"}}>+91-9825023053</a>
+                        <a href="tel:+919825023053" className='text-black' style={{marginRight: "7px", textDecoration: "none"}}>+91-9825023053</a>
                         <FontAwesomeIcon icon={faEnvelope} style={{color: "#000000", marginRight:"7px"}} /> 
-                        <a href="" className='text-black' style={{marginRight: "40px", textDecoration: "none"}}>exports.anjudyechem.com</a>
+                        <a href="mailto:hetvi.patel@anjudyechem.com" className='text-black' style={{marginRight: "40px", textDecoration: "none"}}>exports.anjudyechem.com</a>
                         </span>
                 </div>
         </div>
@@ -92,24 +127,31 @@ function Home() {
               <Nav.Link href="#aboutus" style={{fontSize: "20px"}}>About Us </Nav.Link>
               <Nav.Link href="#products" style={{fontSize: "20px"}}> Products</Nav.Link>
               <Nav.Link href="#contactus" style={{fontSize: "20px"}}>Contact Us </Nav.Link>
-              <Nav.Link href="#inquiry" style={{fontSize: "20px"}}>Get in Touch </Nav.Link>
 
             </Nav>
           </Navbar.Collapse>
+          <button className='btn rounded-5 text-white' style={{ backgroundColor: hover ? 'rgb(110, 156, 226)' : 'rgb(66, 118, 195)', marginRight: "10%"}} onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)} onClick={() => setShowPopup(true)}> Send Enquiry </button>
+
             </div>
             </Navbar>
-            {/* </div> */}
-
+            {/* <div className={`fade-in-text ${showText ? 'visible' : ''}`}> */}
            <div className='d-flex justify-content-center align-item-center'>
             <div className='text-white text-center' style={{padding: "8%"}} >
-                <h1 className='text-black ' style={{fontSize: "60px"}} >Welcome to Anju Dye Chem</h1>
+                {showText && (
+                
+                <div className={`fade-in-text ${showText ? 'visible' : ''}`}>
+                <h1 className='text-black' style={{fontSize: "60px", color: "black"}} >Welcome to Anju Dye Chem</h1>
                 <p className='text-black' style={{marginLeft: "5%", marginTop: "5%", textAlign: "center", fontSize: "20px"}}>
                     We thrive to manufacture best quality products.. with more than 30 years of experience in the Industry<br />
                     Come become a part of journey to excellence...
                 </p>
+                {/* <div> */}
                 <button className='bg-light btn rounded-5' style={{marginLeft: "8%", marginRight: "5px", fontSize: "20px", margin: "10%"}}> <a href="#products" style={{textDecoration: "none", color:"black"}}>Our Products </a></button> 
-                <button className='bg-light btn rounded-5' style={{fontSize: "20px"}}><a href="#inquiry" style={{textDecoration: "none", color:"black"}}> Get in Touch </a></button>
-            
+                <button className='bg-light btn rounded-5' style={{fontSize: "20px"}} onClick={() => setShowPopup(true)}><a href="#inquiry" style={{textDecoration: "none", color:"black" }}> Get in Touch </a></button>
+                </div>
+                // {/* </div> */}
+              )}  
             </div>
             </div>
             </div>  
@@ -121,7 +163,7 @@ function Home() {
                 <Col lg={6} md={6} sm={12} className='mt-2'>
                 <FontAwesomeIcon icon={faCalendar} size= "2xl" style={{height: "50px",  marginLeft: "35%"}}/> <br />
                 <span style={{marginLeft: "33%", fontSize: "19px"}}>30+ Years </span><br />
-                    <span style={{marginLeft: "25%"}}> Manufacturing Experience</span>
+                    <span style={{marginLeft: "29%"}}> Manufacturing Experience</span>
                 </Col>
                 <Col lg={6} md={6} sm={12} className='mt-2'>
                 <FontAwesomeIcon icon={faGlobe} size="2xl" style={{height: "50px",  marginLeft: "35%"}}/> <br />
@@ -138,11 +180,11 @@ function Home() {
 
         <section id="aboutus" className='p-5'>
             <h1 className='text-center' style={{fontSize: "50px"}}>About Us</h1>
-        <Row className='p-5'>
-                    <Col lg={6} md={12} sm={12} className='aboutimage position-relative'>
-                    <img className='img-fluid' src="/ADC_Website_Images/IMG_7041.png" alt="" style={{width: "600px", height: "600px"}} />
+        <Row className='mt-5' >
+                    <Col lg={6} md={12} sm={12} className='aboutimage'>
+                    <img className='img-fluid' src="/ADC_Website_Images/IMG_7041.png" alt="" style={{width: "600px", height: "600px",paddingLeft: '0px', paddingRight: '0px'}} />
                     </Col>
-                    <Col lg={6} md={12} sm={12} className='aboutimage position-relative'>
+                    <Col lg={6} md={12} sm={12} className='aboutimage'>
                     <h2 className='fw-bold'>Who we Are!!</h2>
                     <p style={{textAlign: "justify", marginTop: "25px", marginRight: "25px", lineHeight: "2.5"}}>
                         We started <span className='fw-bold'>Anju Dye Chem</span> with a vision of becoming  successfull manufacturing unit for dyes in Chhatral, Gujarat in 1994. 
@@ -224,11 +266,91 @@ function Home() {
                 </div>
                 </section>
 
+                {/* <section id="inquiry"> */}
 
+                 {showPopup && (
+        <div className="popup-overlay d-flex justify-content-center align-item-center vh-20">
+          <div className="popup-form bg-white p-3 rounded w-50 vh-5" style={{marginTop: "10px", marginBottom: "10px"}}>
+            <button className="close-btn" onClick={() => setShowPopup(false)}>×</button>
+            <h2 className='text-center' style={{marginTop: "10px"}}>Tell us your Query</h2>
+                    <form ref={form} onSubmit={sendEmail}>
+            <div className='mb-3 '>
+                <label htmlFor="email">
+                    <strong>Name</strong>
+                </label>
+                <input 
+                style={{width:"20vw"}}
+                type="text"
+                placeholder='Enter Your Name'
+                autoComplete='off'
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className=' form-control rounded-2'
+                 />
+            </div>
+            <div className='mb-3'>
+                <label htmlFor="email">
+                    <strong>Email</strong>
+                </label>
+                <input 
+                style={{width:"20vw"}}
+                type="email"
+                placeholder='Enter Your Email Id'
+                autoComplete='off'
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className=' form-control rounded-2'
+              
+                 />
+            </div>
+            <div className='mb-3'>
+                <label htmlFor="contact">
+                    <strong>Contact</strong>
+                </label>
+                <input 
+                style={{width:"20vw"}}
+                type="text" 
+                placeholder='Enter Your Contact No'
+                name='contactno'
+                value={formData.contactno}
+                onChange={handleChange}
+                className=' form-control rounded-2'
+               />
+            </div>
+
+            <div className='mb-3'>
+                <label htmlFor="inquiry">
+                    <strong>Subject</strong>
+                </label>
+                <input 
+                style={{width:"30vw", height: "200px"}}
+                type="text" 
+                placeholder='Enter Your Inquiry'
+                name='message'
+                value={formData.message}
+                onChange={handleChange}
+                className=' form-control rounded-2'
+               />
+            </div>
+            <button type='submit' className='btn btn-success rounded-0' style={{width: "20%"}}>
+                Submit
+             </button>
+             
+             </form>
+             
+          </div>
+         
+        </div>
+      )}
+
+                {/* </section> */}
+
+{/* 
                 <section id="inquiry" className='p-2' style={{backgroundColor: 'rgb(221, 219, 222)'}}>
                 <div className='d-flex justify-content-center align-item-center vh-20' >
         <div className='bg-white p-3 rounded w-50 vh-5' style={{marginTop: "10px", marginBottom: "10px"}}>
-                {/* <div className=' text-black p-3 rounded vh-50'> */}
                 <h2 className='text-center' style={{marginTop: "10px"}}>Tell us your Query</h2>
                     <form ref={form} onSubmit={sendEmail}>
             <div className='mb-3 '>
@@ -296,10 +418,9 @@ function Home() {
                 Submit
              </button>
              </form>
-             {/* </div> */}
              </div>
             </div>
-        </section>
+        </section> */}
 
     
     </div>
